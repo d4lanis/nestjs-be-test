@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -29,6 +29,7 @@ async function bootstrap() {
     },
   });
 
+  app.useGlobalPipes(new ValidationPipe({ forbidUnknownValues: false }));
   await app.listen(port);
   Logger.log(`Application started on port ${port}`);
 }
